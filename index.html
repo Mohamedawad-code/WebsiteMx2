@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic page information for browsers and search engines -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO - Search Engine Optimization tags -->
+    <title>TechFlow Solutions - Modern Software Development for Your Business</title>
+    <meta name="description" content="Professional backend and frontend software solutions for companies with small IT departments. Modern systems, custom development, and ongoing support.">
+    <meta name="keywords" content="software development, backend solutions, frontend development, custom software, IT support, modern systems">
+    <meta name="author" content="TechFlow Solutions">
+    
+    <!-- Social media preview tags (Open Graph) -->
+    <meta property="og:title" content="TechFlow Solutions - Modern Software Development">
+    <meta property="og:description" content="Professional software solutions for companies with small IT departments">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com">
+    
+    <!-- Link to our custom styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main navigation bar at the top -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Company logo/name on the left -->
+            <div class="nav-logo">
+                <h2>TechFlow</h2>
+            </div>
+            
+            <!-- Navigation menu in the center -->
+            <ul class="nav-menu">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#solutions">Solutions</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact" class="contact-btn">Contact</a></li>
+            </ul>
+            
+            <!-- Mobile menu button (hamburger) -->
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main hero section - the big area users see first -->
+    <section class="hero">
+        <!-- Background pattern for visual appeal -->
+        <div class="hero-background"></div>
+        
+        <div class="hero-content">
+            <!-- Customer testimonial section -->
+            <div class="testimonial-badge">
+                <div class="customer-avatars">
+                    <div class="avatar"></div>
+                    <div class="avatar"></div>
+                    <div class="avatar"></div>
+                </div>
+                <span>500+ satisfied clients</span>
+            </div>
+            
+            <!-- Main headline -->
+            <h1 class="hero-title">
+                Modern Software Solutions for 
+                <span class="highlight">Growing Businesses</span>
+            </h1>
+            
+            <!-- Description text -->
+            <p class="hero-description">
+                We provide professional backend and frontend development for companies with small IT departments. 
+                Get modern, scalable software solutions without the overhead of a large tech team.
+            </p>
+            
+            <!-- Call-to-action buttons -->
+            <div class="hero-buttons">
+                <button class="btn-secondary" onclick="openContactForm()">Request Consultation</button>
+                <button class="btn-primary" onclick="scrollToServices()">View Our Services</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <!-- Backend development service -->
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3>Backend Development</h3>
+                    <p>Robust server-side solutions, APIs, and database management for your business needs.</p>
+                </div>
+                
+                <!-- Frontend development service -->
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>Frontend Development</h3>
+                    <p>Modern, responsive user interfaces that work perfectly on all devices.</p>
+                </div>
+                
+                <!-- System modernization service -->
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>System Modernization</h3>
+                    <p>Upgrade your legacy systems to modern, efficient, and secure solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="section-title">About TechFlow Solutions</h2>
+                <p>
+                    We specialize in helping companies with small or no IT departments get the modern software 
+                    they need to compete and grow. Our team of experienced developers creates custom solutions 
+                    that are reliable, scalable, and easy to maintain.
+                </p>
+                <p>
+                    Whether you need a new web application, want to modernize existing systems, or require 
+                    ongoing technical support, we're here to help your business thrive in the digital age.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Ready to modernize your business?</h3>
+                    <p>Let's discuss how we can help you build better software solutions.</p>
+                    <div class="contact-details">
+                        <p>📧 hello@techflow.com</p>
+                        <p>📞 (555) 123-4567</p>
+                        <p>📍 123 Tech Street, Digital City</p>
+                    </div>
+                </div>
+                
+                <!-- Simple contact form -->
+                <form class="contact-form" onsubmit="handleFormSubmit(event)">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="text" placeholder="Company Name">
+                    <textarea placeholder="Tell us about your project" rows="4" required></textarea>
+                    <button type="submit" class="btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 TechFlow Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Link to our JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
