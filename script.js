@@ -175,3 +175,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     images.forEach(img => imageObserver.observe(img));
 });
+
+// Custom smooth section scrolling
+document.addEventListener('DOMContentLoaded', function() {
+    let isScrolling = false;
+    const sections = document.querySelectorAll('section');
+    
+    window.addEventListener('wheel', function(e) {
+        // Don't process if already scrolling
+        if (isScrolling) return;
+        
+        isScrolling = true;
+        
+        // Find current section
+        const currentSection = Array.from(sections).findIndex(section => {
+            const rect = section.getBoundingClientRect();
+            return rect.top <= 50 && rect.bottom > 50;
+        });
+        
+        // Determine scroll direction
+        const direction = e.deltaY > 0 ? 1 : -1;
+        const targetIndex = Math.max(0, Math.min(sections.length - 1, currentSection + direction));
+        
+        if (targetIndex !== currentSection && targetIndex >= 0 && targetIndex < sections.length) {
+            sections[targetIndex].scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Reset after animation completes
+        setTimeout(() => {
+            isScrolling = false;
+        }, 800); // Adjust timing to match your preferred animation speed
+    });
+});

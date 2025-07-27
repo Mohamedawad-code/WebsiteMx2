@@ -14,6 +14,18 @@ body {
     overflow-x: hidden;
 }
 
+/* Enable snap scrolling */
+html {
+    scroll-snap-type: y mandatory; /* Makes vertical scrolling snap to sections */
+    scroll-behavior: smooth; /* Adds animation to scrolling */
+}
+
+/* Make each section a snap point */
+section {
+    scroll-snap-align: start; /* Each section will snap to the top of viewport */
+    min-height: 100vh; /* Ensures each section takes up at least the full viewport */
+}
+
 /* Container class to center content and add padding */
 .container {
     max-width: 1200px;
@@ -636,9 +648,4 @@ body {
     .section-title {
         font-size: 2rem;
     }
-}
-
-/* Smooth scrolling for the entire page */
-html {
-    scroll-behavior: smooth;
 }
