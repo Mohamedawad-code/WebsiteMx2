@@ -106,8 +106,9 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 0px 10px 10px; /* Reduce top padding to 0 */
+    padding: 0px 10px 10px;
     text-align: center;
+    overflow: hidden; /* Add this line */
 }
 
 /* Background pattern for the hero section */
@@ -249,7 +250,7 @@ body {
 /* Services section styling */
 .services {
     padding: 100px 0;
-    background: rgba(255, 255, 255, 0.02);
+    background: #0a0a0a; /* Add this or use your preferred color */
 }
 
 /* Section title styling */
