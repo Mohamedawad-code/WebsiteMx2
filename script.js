@@ -152,22 +152,26 @@ function typeWriter(element, text, speed = 100) {
 document.addEventListener('DOMContentLoaded', function() {
     // Add loading animation to images when they're about to be visible
     const images = document.querySelectorAll('img');
-    
+
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                img.style.opacity = '0';
                 img.style.transition = 'opacity 0.3s';
-                
-                img.onload = () => {
+
+                if (img.complete) {
                     img.style.opacity = '1';
-                };
-                
+                } else {
+                    img.style.opacity = '0';
+                    img.onload = () => {
+                        img.style.opacity = '1';
+                    };
+                }
+
                 observer.unobserve(img);
             }
         });
     });
-    
+
     images.forEach(img => imageObserver.observe(img));
 });
