@@ -176,34 +176,58 @@ document.addEventListener('DOMContentLoaded', function() {
     images.forEach(img => imageObserver.observe(img));
 });
 
-// Custom smooth section scrolling
+// Improved smooth section scrolling with better cross-platform support
 document.addEventListener('DOMContentLoaded', function() {
     let isScrolling = false;
+    let scrollTimeout;
     const sections = document.querySelectorAll('section');
+    const scrollDuration = 1000; // ms - animation duration
+    const scrollDelay = 200; // ms - debounce delay
     
-    window.addEventListener('wheel', function(e) {
-        // Don't process if already scrolling
-        if (isScrolling) return;
-        
-        isScrolling = true;
-        
-        // Find current section
-        const currentSection = Array.from(sections).findIndex(section => {
-            const rect = section.getBoundingClientRect();
-            return rect.top <= 50 && rect.bottom > 50;
-        });
-        
-        // Determine scroll direction
-        const direction = e.deltaY > 0 ? 1 : -1;
-        const targetIndex = Math.max(0, Math.min(sections.length - 1, currentSection + direction));
-        
-        if (targetIndex !== currentSection && targetIndex >= 0 && targetIndex < sections.length) {
-            sections[targetIndex].scrollIntoView({ behavior: 'smooth' });
+    // Handle both wheel and touchpad events
+    window.addEventListener('wheel', handleScroll, { passive: false });
+    
+    function handleScroll(e) {
+        // Prevent default only if we're going to handle the scroll
+        if (!isScrolling) {
+            e.preventDefault();
+            
+            // Clear any pending scroll timeouts
+            clearTimeout(scrollTimeout);
+            
+            // Set a small debounce to handle trackpad smooth scrolling
+            scrollTimeout = setTimeout(() => {
+                if (isScrolling) return;
+                isScrolling = true;
+                
+                // Find current section with more forgiving detection
+                const viewportMiddle = window.innerHeight / 2;
+                let currentSection = 0;
+                
+                sections.forEach((section, index) => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= viewportMiddle && rect.bottom >= viewportMiddle) {
+                        currentSection = index;
+                    }
+                });
+                
+                // More reliable direction detection
+                const direction = e.deltaY > 0 ? 1 : -1;
+                const targetIndex = Math.max(0, Math.min(sections.length - 1, currentSection + direction));
+                
+                if (targetIndex !== currentSection) {
+                    // Scroll to the target section
+                    sections[targetIndex].scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Reset after animation completes with a bit extra time for safety
+                setTimeout(() => {
+                    isScrolling = false;
+                }, scrollDuration + 100);
+            }, scrollDelay);
         }
-        
-        // Reset after animation completes
-        setTimeout(() => {
-            isScrolling = false;
-        }, 800); // Adjust timing to match your preferred animation speed
-    });
+    }
 });
