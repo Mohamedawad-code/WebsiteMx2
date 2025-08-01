@@ -14,11 +14,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Enable snap scrolling */
-html {
-    scroll-snap-type: y mandatory; /* Makes vertical scrolling snap to sections */
-    scroll-behavior: smooth; /* Adds animation to scrolling */
-}
+/
 
 /* Make each section a snap point */
 section {
