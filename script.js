@@ -98,8 +98,8 @@ function openContactForm() {
     // Prepare template parameters
     const templateParams = {
         name: name,
-        email: email,         // Add this to match the template's {{email}} variable
-        from_email: email,    // Keep this if used elsewhere in template
+        email: "codecrafters583@gmail.com", // This should be YOUR email (static)
+        from_email: email,                  // Keep this as the submitter's email
         company: company,
         message: message
     };
