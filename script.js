@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
     serviceCards.forEach(card => {
         observer.observe(card);
     });
+    
+    // Initialize EmailJS at page load
+    emailjs.init("lbV_UwSVIENMX1neJ");
 });
 
 // Function to scroll smoothly to the services section
@@ -100,10 +103,6 @@ function openContactForm() {
         company: company,
         message: message
     };
-    
-    // Initialize EmailJS with your user ID (get this from your EmailJS dashboard)
-    // This should ideally be done once when the page loads
-    emailjs.init("lbV_UwSVIENMX1neJ"); // Replace with your actual user ID
     
     // Send the email using your service and template IDs
     emailjs.send('service_oapqtbu', 'template_fwdjjtm', templateParams)
