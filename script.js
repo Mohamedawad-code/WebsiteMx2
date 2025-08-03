@@ -1,5 +1,7 @@
 // Wait for the page to fully load before running our code
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize EmailJS FIRST
+    emailjs.init("lbV_UwSVIENMX1neJ");
     
     // Get references to important elements
     const hamburger = document.querySelector('.hamburger');
@@ -52,9 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
     serviceCards.forEach(card => {
         observer.observe(card);
     });
-    
-    // Initialize EmailJS at page load
-    emailjs.init("lbV_UwSVIENMX1neJ");
 });
 
 // Function to scroll smoothly to the services section
@@ -99,7 +98,8 @@ function openContactForm() {
     // Prepare template parameters
     const templateParams = {
         name: name,
-        from_email: email,
+        email: email,         // Add this to match the template's {{email}} variable
+        from_email: email,    // Keep this if used elsewhere in template
         company: company,
         message: message
     };
