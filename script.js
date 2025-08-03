@@ -110,7 +110,7 @@ function openContactForm() {
             console.log('Auto-reply sent!');
             
             // Then send notification to your business email
-            return emailjs.send('service_oapqtbu', 'YOUR_NEW_TEMPLATE_ID', templateParams);
+            return emailjs.send('service_oapqtbu', 'template_nd4ttpl', templateParams);
         })
         .then(function(response) {
             console.log('Notification sent!');
