@@ -76,32 +76,56 @@ function openContactForm() {
     }
 }
 
-// Handle contact form submission
-function handleFormSubmit(event) {
-    // Prevent the form from submitting normally
+// Handle form submission with EmailJS
+   function handleFormSubmit(event) {
     event.preventDefault();
     
+    // Show loading state
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Sending...";
+    submitBtn.disabled = true;
+    
     // Get form data
-    const formData = new FormData(event.target);
-    const name = event.target.querySelector('input[placeholder="Your Name"]').value;
-    const email = event.target.querySelector('input[placeholder="Your Email"]').value;
-    const company = event.target.querySelector('input[placeholder="Company Name"]').value;
-    const message = event.target.querySelector('textarea').value;
+    const form = event.target;
+    const name = form.querySelector('input[placeholder="Your Name"]').value;
+    const email = form.querySelector('input[placeholder="Your Email"]').value;
+    const company = form.querySelector('input[placeholder="Company Name"]').value;
+    const message = form.querySelector('textarea').value;
     
-    // Simple validation
-    if (!name || !email || !message) {
-        alert('Please fill in all required fields.');
-        return;
-    }
+    // Prepare template parameters
+    const templateParams = {
+        name: name,
+        from_email: email,
+        company: company,
+        message: message
+    };
     
-    // Show success message (in a real website, you'd send this to a server)
-    alert('Thank you for your message! We will get back to you soon.');
+    // Initialize EmailJS with your user ID (get this from your EmailJS dashboard)
+    // This should ideally be done once when the page loads
+    emailjs.init("lbV_UwSVIENMX1neJ"); // Replace with your actual user ID
     
-    // Clear the form
-    event.target.reset();
-    
-    // In a real website, you would send the data to your server here
-    // Example: fetch('/submit-contact', { method: 'POST', body: formData })
+    // Send the email using your service and template IDs
+    emailjs.send('service_oapqtbu', 'template_fwdjjtm', templateParams)
+        .then(function(response) {
+            console.log('Email sent!', response.status, response.text);
+            submitBtn.textContent = "Message Sent!";
+            form.reset();
+            
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
+        }, function(error) {
+            console.log('Failed to send email', error);
+            submitBtn.textContent = "Error! Try Again";
+            
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
+        });
 }
 
 // Add smooth hover effects to buttons
