@@ -104,10 +104,16 @@ function openContactForm() {
         message: message
     };
     
-    // Send the email using your service and template IDs
+    // First, send the auto-reply to the customer
     emailjs.send('service_oapqtbu', 'template_fwdjjtm', templateParams)
         .then(function(response) {
-            console.log('Email sent!', response.status, response.text);
+            console.log('Auto-reply sent!');
+            
+            // Then send notification to your business email
+            return emailjs.send('service_oapqtbu', 'YOUR_NEW_TEMPLATE_ID', templateParams);
+        })
+        .then(function(response) {
+            console.log('Notification sent!');
             submitBtn.textContent = "Message Sent!";
             form.reset();
             
@@ -116,7 +122,8 @@ function openContactForm() {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             }, 3000);
-        }, function(error) {
+        })
+        .catch(function(error) {
             console.log('Failed to send email', error);
             submitBtn.textContent = "Error! Try Again";
             
