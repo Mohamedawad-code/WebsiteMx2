@@ -1,5 +1,7 @@
 // Wait for the page to fully load before running our code
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize EmailJS FIRST
+    emailjs.init("lbV_UwSVIENMX1neJ");
     
     // Get references to important elements
     const hamburger = document.querySelector('.hamburger');
@@ -76,32 +78,68 @@ function openContactForm() {
     }
 }
 
-// Handle contact form submission
-function handleFormSubmit(event) {
-    // Prevent the form from submitting normally
+// Handle form submission with EmailJS
+   function handleFormSubmit(event) {
     event.preventDefault();
     
+    // Show loading state
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Sending...";
+    submitBtn.disabled = true;
+    
     // Get form data
-    const formData = new FormData(event.target);
-    const name = event.target.querySelector('input[placeholder="Your Name"]').value;
-    const email = event.target.querySelector('input[placeholder="Your Email"]').value;
-    const company = event.target.querySelector('input[placeholder="Company Name"]').value;
-    const message = event.target.querySelector('textarea').value;
+    const form = event.target;
+    const name = form.querySelector('input[placeholder="Your Name"]').value;
+    const email = form.querySelector('input[placeholder="Your Email"]').value;
+    const company = form.querySelector('input[placeholder="Company Name"]').value;
+    const message = form.querySelector('textarea').value;
     
-    // Simple validation
-    if (!name || !email || !message) {
-        alert('Please fill in all required fields.');
-        return;
-    }
+    // Prepare template parameters
+    const templateParams = {
+        // For both templates
+        name: name,
+        company: company,
+        message: message,
+        
+        // For notification (to you)
+        to_business: "codecrafters583@gmail.com",  // Your business email
+        
+        // For auto-reply (to customer)
+        from_email: email,  // Customer's email for reply-to and sending auto-reply
+        
+        // Keep this for backward compatibility with your templates
+        email: email  // This will change to customer's email!
+    };
     
-    // Show success message (in a real website, you'd send this to a server)
-    alert('Thank you for your message! We will get back to you soon.');
-    
-    // Clear the form
-    event.target.reset();
-    
-    // In a real website, you would send the data to your server here
-    // Example: fetch('/submit-contact', { method: 'POST', body: formData })
+    // First, send the auto-reply to the customer
+    emailjs.send('service_oapqtbu', 'template_fwdjjtm', templateParams)
+        .then(function(response) {
+            console.log('Auto-reply sent!');
+            
+            // Then send notification to your business email
+            return emailjs.send('service_oapqtbu', 'template_nd4ttpl', templateParams);
+        })
+        .then(function(response) {
+            console.log('Notification sent!');
+            submitBtn.textContent = "Message Sent!";
+            form.reset();
+            
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
+        })
+        .catch(function(error) {
+            console.log('Failed to send email', error);
+            submitBtn.textContent = "Error! Try Again";
+            
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
+        });
 }
 
 // Add smooth hover effects to buttons
