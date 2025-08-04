@@ -97,11 +97,19 @@ function openContactForm() {
     
     // Prepare template parameters
     const templateParams = {
+        // For both templates
         name: name,
-        email: "codecrafters583@gmail.com", // This should be YOUR email (static)
-        from_email: email,                  // Keep this as the submitter's email
         company: company,
-        message: message
+        message: message,
+        
+        // For notification (to you)
+        to_business: "codecrafters583@gmail.com",  // Your business email
+        
+        // For auto-reply (to customer)
+        from_email: email,  // Customer's email for reply-to and sending auto-reply
+        
+        // Keep this for backward compatibility with your templates
+        email: email  // This will change to customer's email!
     };
     
     // First, send the auto-reply to the customer
